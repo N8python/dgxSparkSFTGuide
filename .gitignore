@@ -1,0 +1,10 @@
+unsloth_compiled_cache
+wandb
+__pycache___
+requirements.base.tmp.txt
+train-full.jsonl
+train-messages-full.jsonl
+test-full.jsonl
+eval_outputs/
+checkpoints/
+data/
