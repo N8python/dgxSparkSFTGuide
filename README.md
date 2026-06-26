@@ -47,9 +47,9 @@ conda activate trainEnv
 python unsloth_lora_train.py
 ```
 
-It should train at roughly 2000 tokens/sec on a single DGX Spark, and log to WandB. This will teach Qwen3-4B-Instruct-2507 to extract PII from chat messages, but may degrade the base model's existing capabilities when the adapter is enabled.
+It should train at roughly 2000 tokens/sec on a single DGX Spark, take ~30 minutes to complete, and log to WandB. This will teach Qwen3-4B-Instruct-2507 to extract PII from chat messages, but may degrade the base model's existing capabilities when the adapter is enabled.
 
-To preserve capabilities, you can KL-regularize the PII training - meaning minimizing the KL divergence between the base model and the LoRA adapter on a reference dataset (Tulu 3 SFT mixture). This is roughly 3x slower, but as we will see in the benchmark results, it preserves base model capability.
+To preserve capabilities, you can KL-regularize the PII training - meaning minimizing the KL divergence between the base model and the LoRA adapter on a reference dataset (Tulu 3 SFT mixture). This is roughly 3x slower (~1hr 30min), but as we will see in the benchmark results, it preserves base model capability.
 
 For KL-regularized training against the Tulu 3 SFT mixture:
 
@@ -164,6 +164,7 @@ prompt_tokens_per_second: input token throughput
 tokens_generated_per_second: generated token throughput
 ```
 
+Evaluation should take 3-5 min.
 ## 8. Run GSM8K eval
 
 The GSM8K evaluator downloads the Hugging Face test split on first use and caches it at:
@@ -210,6 +211,7 @@ prompt_tokens_per_second: input token throughput
 tokens_generated_per_second: generated token throughput
 ```
 
+Evaluation should take 5-7 min.
 ## Benchmark Results: Base vs Normal LoRA vs KL-Regularized LoRA
 
 These runs were completed w/ SGLang. All runs used `--temperature 0`; GSM8K additionally used `--repetition-penalty 1.1`.
