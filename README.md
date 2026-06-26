@@ -82,8 +82,13 @@ data/tulu-3-sft-mixture-train.jsonl.meta.json
 
 KL mode currently requires `--per-device-batch-size 1`, so each optimizer step pairs one PII CE example with one Tulu reference KL example.
 
-## 6. Create a separate inference environment for SGLang evals
 
+KL vs. PII CE loss curves, as logged to wandb:
+
+![KL vs PII Loss Curves](loss.png)
+
+## 6. Create a separate inference environment for SGLang evals
+ 
 Keep inference separate from `trainEnv`. SGLang currently uses a different Torch and Transformers stack than the Unsloth training environment, so installing it into `trainEnv` can uninstall or downgrade training-critical packages.
 
 Create a dedicated environment:
